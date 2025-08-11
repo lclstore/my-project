@@ -1,0 +1,919 @@
+/* 容器样式 */
+.commonEditorContainer {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* width: 100%; */
+    width: calc(100% - 16px);
+    /* flex: 1; */
+    position: relative;
+    /* position: absolute; */
+    /* top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; */
+    overflow: auto;
+}
+
+.loadingContainer {
+    position: fixed;
+    top: 64px;
+    left: 250px;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spin,
+:global(.ant-spin-container) {
+    width: 100%;
+    height: 100%;
+}
+
+
+.title {
+    line-height: 35px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+/* 基础编辑器表单 */
+.basicEditorForm {
+
+    width: 100%;
+    flex-grow: 1;
+}
+
+.basicFormContent {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 3fr 2fr;
+    max-width: 100%;
+    padding: 0px;
+    border-radius: 6px;
+}
+
+.basicFormContentLeft {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+}
+
+.basicFormContentRight {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+}
+
+.advancedBasicBox {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09); */
+    overflow-y: auto;
+}
+
+/* .advancedBasicForm {
+    padding: 20px;
+} */
+
+/* 高级编辑器表单 */
+.advancedEditorContainer {
+    overflow: visible;
+}
+
+.advancedEditorForm {
+    padding: 16px;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    flex-grow: 1;
+    overflow-y: auto;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09); */
+}
+
+.withSidebar {
+    overflow: visible;
+    background: none;
+    box-shadow: none;
+}
+
+
+
+/* 拖拽相关样式 */
+.structureItem {
+    position: relative;
+    background: #fff;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border: 1px solid #e8e8e8;
+}
+
+.structureItem:hover {
+    border-color: #d9d9d9;
+}
+
+.dragHandleWrapper {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dragHandle {
+    cursor: move;
+    color: #999;
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.dragHandle:hover {
+    color: #666;
+}
+
+/* 内容库面板 */
+.contentLibraryPanel {
+    flex: 0 0 300px;
+}
+
+/* 编辑表单面板 */
+.editorFormPanel {
+    flex: 1;
+}
+
+/* 上传组件样式 */
+.uploadContainer {
+    width: 100%;
+}
+
+.editFormItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.uploadContentWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.uploadLeftSection {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.uploadLeftSection:hover .clearButton {
+    display: block;
+}
+
+.uploadArea {
+    width: 90px;
+    height: 90px;
+    margin-right: 16px;
+}
+
+.previewContainer {
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid #d9d9d9; */
+}
+
+.previewContainer img,
+.previewContainer .ant-image,
+.previewContainer .ant-image-img {
+    width: 100% !important;
+}
+
+.previewContainer:hover .imageActions {
+    opacity: 1;
+}
+
+.imageActions {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* 调试信息样式 */
+.debugInfo {
+    margin-top: 8px;
+    padding: 8px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 350px;
+}
+
+/* 视频预览样式 */
+.videoPreview {
+    max-width: 100%;
+}
+
+/* 音频预览样式 */
+.audioPreviewContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.audioPreview {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.audioFileName {
+    font-size: 12px;
+    color: #666;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* 通用文件预览 */
+.filePreview {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: #f9f9f9;
+}
+
+.fileIcon {
+    font-size: 18px;
+    color: #1890ff;
+}
+
+.fileName,
+.audioFileName {
+    font-size: 10px;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 个人资料信息 */
+.profileInfo {
+    margin-left: 16px;
+}
+
+.profilePictureTitle {
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+.profilePictureDesc {
+    display: block;
+    font-size: 14px;
+}
+
+/* 上传组件自定义样式 */
+.avatarUploader :global(.ant-upload) {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.avatarUploader :global(.ant-upload-drag) {
+    padding: 16px;
+    border: 1px dashed #d9d9d9;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    background-color: none;
+}
+
+.avatarUploader :global(.ant-upload-drag:hover) {
+    border-color: #1890ff;
+}
+
+.avatarUploader :global(.ant-upload-list-picture-card-container) {
+    width: 100%;
+    height: auto;
+}
+
+:global(.ant-form-item) {
+    margin-bottom: 0;
+}
+
+/* 表单项 label 样式 */
+
+
+:global(.ant-form-item .ant-form-item-label>label) {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.ant-form-item .ant-form-item-label>label.ant-form-item-required::before {
+    color: #000 !important;
+}
+
+:global(.editorform-item) {
+    margin-bottom: 24px !important;
+}
+
+:global(.editorform-item.not-margin) {
+    margin-bottom: 0 !important;
+}
+
+:global(.structureList-title) {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.avatarUploader :global(.ant-upload-drag-hover) {
+    border-color: var(--primary-color);
+    background: rgba(24, 144, 255, 0.05);
+}
+
+/* 文件预览容器 */
+.imagePreviewContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+}
+
+.uploadIcon {
+    font-size: 30px;
+    color: #8c939d;
+}
+
+/* :global(.ant-image) {
+    width: 100%;
+    height: 100%;
+    max-height: 100% !important;
+    max-width: 100% !important;
+} */
+
+/* :global(.ant-image .ant-image-img) {
+    width: 100% !important;
+    height: 100% !important;
+} */
+
+:global(.imagePreviewContainer .ant-image .ant-image-mask) {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+/* 文件名容器 */
+.fileNameContainer {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.fileName {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 文件信息展示 */
+.fileInfo {
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+}
+
+.uploadInfo {
+    margin-left: 16px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.uploadStatus {
+    margin-left: 8px;
+    font-size: 12px;
+}
+
+.uploadProgress {
+    margin-top: 6px;
+    width: 100%;
+}
+
+.fileSize {
+    font-size: 12px;
+    color: #999;
+}
+
+.fileIcon {
+    font-size: 18px;
+    color: #1890ff;
+}
+
+.filePreview {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: #f9f9f9;
+}
+
+.fileDetails {
+    flex: 1;
+    margin-left: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 下载按钮 */
+.downloadButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1890ff;
+    font-size: 18px;
+    margin-left: 12px;
+    transition: all 0.3s;
+}
+
+.downloadButton:hover {
+    color: #40a9ff;
+    transform: scale(1.1);
+}
+
+/* 预览遮罩 */
+.previewMask {
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+/* 图片预览 */
+.avatarImg {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 视频预览 */
+.videoPreview {
+    width: 100%;
+}
+
+/* 音频预览 */
+.audioPreview {
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* 清除按钮 */
+.clearButton {
+    position: absolute !important;
+    top: -10px;
+    right: 10px;
+    z-index: 10;
+    font-size: 20px;
+    color: var(--primary-color) !important;
+    display: none;
+}
+
+.uploadActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.actionButton {
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+/* 日期选择器包装器 */
+.datePickerWrapper {
+    width: 100%;
+}
+
+/* 文本展示字段 */
+.displayText {
+    padding: 6px 11px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.88);
+}
+
+/* 基础表单容器 */
+.basicFormContainer {
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+}
+
+/* 字段组容器 */
+.fieldGroupContainer {
+    width: 100%;
+}
+
+/* 表单行 */
+.formRow {
+    width: 100%;
+}
+
+
+
+/* 分隔线列 */
+.dividerCol {
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+:global(.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-in-range:not(.ant-picker-cell-disabled):before) {
+    background-color: #eeebeb;
+}
+
+/* 开关预览样式 */
+.switchFieldContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.switchPreview {
+    margin-top: 8px;
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.switchPreviewText {
+    padding: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.switchPreviewImage {
+    object-fit: contain;
+}
+
+.switchPreviewInputItem {
+    margin-bottom: 0 !important;
+    padding: 10px;
+}
+
+.switchPreviewInput {
+    width: 100%;
+}
+
+/* 面板项目样式 */
+.emptyItem {
+    padding: 12px;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.panelItemFields {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 8px;
+}
+
+.panelItemField {
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+.structurePanelsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.structurePanel {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.panelItemsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.panelItem {
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.panelItem.expanded {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.itemHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #fafafa;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.itemHeader:hover {
+    background-color: #f5f5f5;
+}
+
+.itemTitle {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.itemActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.itemContent {
+    padding: 16px;
+    background-color: #fff;
+}
+
+/*  */
+.ant-form-item-required {
+    font-size: 14px !important;
+}
+
+.emptyPanel {
+    padding: 24px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    background-color: #fafafa;
+    border-radius: 4px;
+}
+
+/* 高级表单样式 */
+.advancedForm {
+    width: 100%;
+}
+
+.formCollapse {
+    background-color: transparent;
+    border: none;
+}
+
+.formPanel {
+    margin-bottom: 16px;
+    background-color: #fff;
+}
+
+/* 日历控件 */
+:global(.ant-picker-dropdown .ant-picker-panel-container) {
+    width: 100%;
+}
+
+:global(.ant-picker-dropdown .ant-picker-header-view>button) {
+    color: var(--primary-color);
+}
+
+:global(.ant-picker-dropdown .ant-picker-header-view>button:hover) {
+    color: var(--primary-color);
+}
+
+.basicEditorContainer {
+    margin: 0 auto;
+    /* padding: 30px; */
+    width: 100%;
+    overflow-y: auto;
+    /* max-width: 765px; */
+}
+
+/* 高级表单内容 */
+.advancedFormContent {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: 16px;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.collapseFormContent {
+    display: block;
+    margin: 0 auto;
+    /* max-width: 768px; */
+    width: 927px;
+
+}
+
+/* 左侧列表容器 */
+.commonListContainer {
+    width: 300px;
+    height: 100%;
+    overflow: auto;
+    border-right: 1px solid #f0f0f0;
+    padding-right: 16px;
+}
+
+
+/* 带侧边栏的高级编辑器表单 */
+.withSidebar {
+    /*margin-left: 16px;*/
+    padding: 0;
+}
+
+/* 表单样式 */
+.form {
+    width: 100%;
+    height: 100%;
+    /* max-width: 1200px; */
+}
+
+:global(#Profile) {
+    height: auto;
+}
+
+.basicEditorForm :global(.ant-spin-nested-loading) {
+    height: 100%;
+}
+
+/* 折叠面板容器 */
+.formCollapse {
+    width: 100%;
+    background-color: #fff;
+    border: none;
+}
+
+/* 表单面板项 */
+.formPanel {
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background-color: #fff;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09); */
+}
+
+
+
+/* 结构面板容器 */
+.structurePanelsContainer {
+    margin-top: 24px;
+}
+
+/* 结构面板样式 */
+.structurePanel {
+    margin-bottom: 24px;
+    border-radius: 8px;
+}
+
+/* 项目标题栏 */
+.itemHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* 项目内容区域 */
+.itemFields {
+    padding: 16px 0;
+}
+
+/* 显示文本字段 */
+.displayText {
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+}
+
+/* 显示图片字段 */
+.displayImg {
+    max-width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid rgb(226, 235, 235);
+    margin-bottom: 10px;
+}
+
+.infoIcon {
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    display: inline-block;
+    color: var(--text-primary);
+    background-color: rgb(226, 235, 235);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+:global(.ant-tooltip) {
+    max-width: 400px;
+    --antd-arrow-background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+:global(.ant-tooltip .ant-tooltip-inner) {
+    background-color: #fff;
+    color: var(--text-primary);
+    padding: 16px;
+    max-width: 400px;
+    border-radius: 4px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+}
+
+/*多选时超出文本隐藏多余内容*/
+:global(.ant-select-selection-item>span:first-child>span:first-child) {
+    width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* commonList 样式 */
+.displayKeyItemContainer {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.45);
+}
+
+.displayKeyItem {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.displayKeyItem::after {
+    content: '｜';
+    margin-left: 2px;
+    margin-right: 2px;
+    color: #ccc;
+    font-size: 10px;
+}
+
+/* 最后一个元素不显示分隔符 */
+.displayKeyItem:last-child::after {
+    content: '';
+}
+
+
+
+.audioPreviewBox,
+.audioPreview_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    color: #11cc88;
+    border: 2px solid #11cc88;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+:global(.ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-avatar) {
+    margin-inline-end: 0px;
+}

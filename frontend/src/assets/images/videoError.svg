@@ -1,0 +1,6 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="120" height="120" rx="12" fill="#F3F4F6"/>
+    <path d="M35 40C32.7909 40 31 41.7909 31 44V76C31 78.2091 32.7909 80 35 80H65C67.2091 80 69 78.2091 69 76V65L85 75V45L69 55V44C69 41.7909 67.2091 40 65 40H35Z" fill="#D1D5DB"/>
+    <path d="M30 30L90 90" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round"/>
+    <text x="60" y="110" text-anchor="middle" font-size="12" fill="#9CA3AF" font-family="sans-serif">No Video</text>
+</svg>

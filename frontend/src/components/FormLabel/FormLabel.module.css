@@ -1,0 +1,47 @@
+/* 表单标签容器样式 */
+.formLabel {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #243636;
+    font-weight: 600;
+    /* 移除未使用的注释 */
+}
+
+/* 选填提示文本样式 */
+.optionalTip {
+    margin-left: 3px;
+    color: #999;
+    font-size: 12px;
+    font-weight: 500;
+}
+.infoImge{
+    width: 13px;
+    height: 13px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+/* 信息图标样式 */
+.infoIcon {
+    margin-left: 5px;
+    width: 13px;
+    height: 13px;
+    line-height: 13px;
+    text-align: center;
+    display: inline-block;
+    color: var(--text-primary);
+    background-color: rgb(226, 235, 235);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* 信息图标悬浮效果 */
+.infoIcon:hover {
+    background-color: #d9d9d9;
+}
+
+/* 提示气泡样式 */
+.tooltip {
+    margin-left: 4px;
+}

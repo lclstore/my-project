@@ -1,0 +1,68 @@
+/* src/components/NumberStepper/NumberStepper.css */
+.number-stepper-container {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid transparent;
+    padding: 4px 0;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+
+
+
+.stepper-button {
+    border-radius: 8px !important;
+    border: 1px solid #d9d9d9 !important;
+    color: var(--primary-color, #1890ff) !important;
+    font-weight: 600 !important;
+    background-color: #fff !important;
+    box-shadow: none !important;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.3s;
+    /* 平滑过渡效果 */
+}
+
+.stepper-button:hover,
+.stepper-button:focus {
+    border-color: var(--active-color, #1890ff) !important;
+    color: var(--active-color, #1890ff) !important;
+}
+
+.stepper-button[disabled],
+.stepper-button[disabled]:hover {
+    border-color: #d9d9d9 !important;
+    color: rgba(0, 0, 0, 0.25) !important;
+    background-color: rgba(0, 0, 0, 0.04) !important;
+    cursor: not-allowed !important;
+}
+
+.stepper-value {
+    display: inline-block;
+    min-width: 53px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    padding: 0 16px;
+    text-align: center;
+    line-height: 32px;
+    user-select: none;
+}
+
+
+/* 支持表单校验状态 */
+.number-stepper-container.has-error {
+    border-color: #ff4d4f;
+}
+
+.number-stepper-container.has-warning {
+    border-color: #faad14;
+}
+
+.number-stepper-container.has-success {
+    border-color: #52c41a;
+}

@@ -1,0 +1,142 @@
+.dynamicFormList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.structureList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    padding: 2px 0;
+}
+
+.structureListItem.itemWrapper {
+    padding: 0;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.structureListItem.itemWrapper.expanded {
+    border: 1px solid #1c8;
+}
+
+/* 拖拽时样式 */
+.structureListItem.itemWrapper.dragOver {
+    background-color: var(--bg-main);
+}
+
+.sortableItemRow {
+    padding: 10px;
+}
+
+.structureItemActions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.structureItemActions .ant-btn {
+    color: #8c8c8c;
+}
+
+.structureItemActions .ant-btn:hover {
+    color: #1677ff;
+}
+
+.sortHandle {
+    cursor: grab !important;
+}
+
+.audioPreview {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.audioPreviewBox {
+    margin-right: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    color: #11cc88;
+    border: 2px solid #11cc88;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.audioPreviewBox:hover {
+    border-color: #0faa77;
+    color: #0faa77;
+}
+
+/* 头像样式 */
+.itemAvatar {
+    margin-right: 16px;
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.displayKeyItemContainer {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.45);
+}
+
+.displayKeyItem {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.displayKeyItem::after {
+    content: '｜';
+    margin-left: 2px;
+    margin-right: 2px;
+    color: #ccc;
+}
+
+/* 最后一个元素不显示分隔符 */
+.displayKeyItem:last-child::after {
+    content: '';
+}
+
+.formContainer {
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.editorFormItem {
+    margin-bottom: 12px;
+}
+
+.addButton {
+    margin-top: 8px;
+}
+
+.formFields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.listTotal {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    text-align: right;
+}

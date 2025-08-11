@@ -1,0 +1,246 @@
+.mediaCell {
+    display: flex;
+    cursor: pointer;
+    pointer-events: auto !important;
+    flex: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    /* 确保媒体单元格始终能接收事件 */
+}
+
+/* 确保所有类型媒体容器都有标识类 */
+.imageContainer,
+.videoContainer,
+.audioContainer {
+    pointer-events: auto !important;
+    flex: 1;
+    max-width: 79px;
+}
+
+.mediaCell {
+    :global {
+        .ant-image {
+            flex: 1;
+            height: 100%;
+            width: 100%;
+
+            .no-mask {
+                display: none;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        .ant-image-mask {
+            pointer-events: auto !important;
+        }
+    }
+}
+
+.tabVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: auto !important;
+}
+
+.videoOverlay {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+    /* 轻微蒙层 */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    /* 默认不响应鼠标事件 */
+}
+
+.mediaCell:hover .videoOverlay {
+    opacity: 1;
+}
+
+/* 播放图标默认可见，悬停时隐藏 */
+.videoPlayIconOverlay {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 更明显的背景 */
+    font-size: 24px;
+}
+
+/* 预览提示在悬停时显示 */
+.videoPreviewHintOverlay {
+    opacity: 0;
+    font-size: 14px;
+    pointer-events: auto !important;
+    /* 允许点击 */
+}
+
+.mediaCell:hover {
+    opacity: 0.8;
+}
+
+.videoDurationOverlay {
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+    color: white;
+    border-radius: 2px;
+    font-size: 10px;
+    pointer-events: none;
+    /* 不阻挡悬停 */
+}
+
+/* 新增：New 标签样式 */
+.new-tag {
+    padding: 2px 4px;
+    position: absolute;
+    top: 5px;
+    left: 48px;
+    width: initial;
+    height: 15px;
+    background-color: var(--active-color);
+    color: white;
+    font-size: 10px;
+    transform: scale(0.9);
+    font-weight: 600;
+    border-radius: 6px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 新增：锁图标样式 */
+.lock-icon {
+    position: absolute;
+    top: 5px;
+    left: 2px;
+    padding: 4px;
+    transform: scale(0.9);
+    background-color: var(--active-color);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 50%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.audioContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.audioIcon {
+    font-size: 18px;
+    padding: 5px;
+    color: rgb(17, 204, 136);
+    border: 2px solid rgb(17, 204, 136);
+    border-radius: 50%;
+}
+
+.audioIcon:hover {
+    border: 2px solid var(--active-color);
+    opacity: 0.8;
+}
+
+/* 移除音频容器的悬停效果相关样式 */
+.audioContainer:hover .videoPreviewHintOverlay {
+    background-color: transparent;
+}
+
+
+
+/* 视频预览模态框样式 */
+:global(.media-preview-modal-wrap) {
+    z-index: 1000;
+}
+
+:global(.custom-close-icon) {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+}
+
+
+
+:global(.ant-modal-close) {
+    pointer-events: auto !important;
+    z-index: 1001 !important;
+}
+
+:global(.ant-modal-close-x) {
+    pointer-events: auto !important;
+}
+
+/* 图片占位符样式 */
+.imagePlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 75px;
+    background-color: #f5f5f5;
+    color: #bfbfbf;
+}
+
+/* 确保懒加载的图片占位符不会导致布局跳动 */
+.mediaCell .ant-image-placeholder {
+    height: 75px !important;
+    display: flex;
+    //align-items: center;
+    //justify-content: center;
+}
+
+/* 优化懒加载过渡效果 */
+.mediaCell .ant-image-img {
+    transition: opacity 0.3s;
+}
+
+.audioPlayer {
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    display: block;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+}
+
+.audioPlayer .audio {
+    width: 100%;
+    height: 60px;
+}
+
+.videoPlayer {
+    padding: 0 20px;
+    background-color: #000;
+    border-radius: 16px;
+
+}

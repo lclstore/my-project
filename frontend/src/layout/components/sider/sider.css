@@ -1,0 +1,91 @@
+.createWorkoutBtn {
+    margin: 20px auto;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    text-align: center;
+    font-size: var(--font-md-sm);
+    font-weight: var(--font-weight-md);
+    color: var(--text-white);
+    border: 1px solid var(--active-color);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    width: fit-content;
+}
+
+.createWorkoutBtn1_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+
+}
+
+.createWorkoutBtn1 {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    text-align: center;
+    font-size: 22px;
+    font-weight: var(--font-weight-md);
+    color: var(--text-white);
+    /* border: 1px solid var(--active-color); */
+    /* border-radius: var(--border-radius-md); */
+    cursor: pointer;
+    width: fit-content;
+}
+
+.createWorkoutBtn1_img {
+    /* width: 10px; */
+    height: 30px;
+}
+
+.Profile {
+    width: fit-content;
+    /* padding: 16px; */
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: #243636;
+    display: flex;
+    cursor: pointer;
+}
+
+.mask {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+}
+
+.Profile:hover .mask {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+.Profile-avatar,
+.Profile-avatar-img {
+    margin-top: 16px;
+    margin-left: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    /*background-color: #fff;*/
+    margin-right: 10px;
+}
+
+
+
+.Profile-usename {
+    font-size: 13px;
+    margin-bottom: 2px;
+    line-height: 1.3;
+    font-family: Poppins;
+    color: #fff;
+    font-weight: 600;
+    line-height: 17px;
+}
+
+.Profile-eamil {
+    font-size: 13px;
+    line-height: 1.3;
+    font-family: Poppins;
+    color: rgb(136, 158, 158);
+    line-height: 13px;
+}

@@ -1,0 +1,45 @@
+/* 通用列表组件样式 */
+.commonList {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    padding: 16px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09); */
+}
+
+.item.selectableItem {
+    cursor: pointer;
+}
+
+/* 滚动容器样式 */
+.scrollContainer {
+    flex: 1;
+    overflow: auto;
+}
+
+.titleContainer {
+    flex: 1;
+}
+
+/* 搜索栏样式 */
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.searchInput {
+    width: 300px;
+}

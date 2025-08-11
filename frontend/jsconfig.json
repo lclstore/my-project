@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/pages/*": [
+        "./src/pages/*"
+      ],
+      "@/assets/*": [
+        "./src/assets/*"
+      ],
+      "@/store/*": [
+        "./src/store/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@/config/*": [
+        "./src/config/*"
+      ],
+      "@/constants/*": [
+        "./src/constants/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

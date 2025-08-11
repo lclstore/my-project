@@ -1,0 +1,559 @@
+ .configurable-table-container {
+   width: 100%;
+   padding: 20px;
+   position: absolute;
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   display: flex;
+   flex-direction: column;
+   background: var(--bg-main);
+
+   // 基础类
+   .flex {
+     display: flex;
+   }
+
+   // 表格查询栏
+   .configurable-table-toolbar {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 10px;
+     flex-wrap: wrap;
+     gap: 10px;
+
+     /* 左侧工具栏组 */
+     >.ant-space {
+       flex-wrap: wrap;
+       /* 允许按钮换行 */
+       gap: 10px !important;
+       /* 按钮之间的间隙 */
+     }
+   }
+
+   .expanded-table {
+     padding: 16px 0;
+   }
+
+   // 表格整体
+   .ant-table-wrapper {
+     background: none;
+     display: flex;
+     overflow: auto;
+     flex-direction: column;
+
+     &::-webkit-scrollbar {
+       width: 0.01px;
+     }
+
+     // .ant-table-expanded-row-fixed {
+     //   // padding: 0 !important;
+     //   // left: auto !important;
+     //   // margin: 0;
+     // }
+
+     .ant-table-cell {
+       //padding: 16px 8px;
+
+       padding: 0 !important;
+
+       .td-cell {
+
+         min-height: 79px;
+         box-sizing: border-box;
+         margin: 0 8px;
+         display: flex;
+         align-items: center;
+         position: relative;
+         word-break: break-word;
+         font-weight: 400;
+         font-size: 13px !important;
+         color: rgb(36, 54, 54);
+
+         .actions-container {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+         }
+       }
+
+
+       .td-cell .cell-name,
+       .td-cell.cell-name {
+         font-weight: 600;
+       }
+
+       .td-cell .cell-id {
+         color: var(--text-secondary);
+         font-size: 12px;
+       }
+
+       //媒体展示
+       .media-cell {
+         // max-height: 79px;
+         // max-width: 79px;
+
+         height: 100%;
+
+         .media-cell-wrapper {
+           width: 100%;
+           height: 100%;
+           display: flex;
+           align-items: center;
+           //  justify-content: center;
+           position: relative;
+
+           .ant-image,
+           .ant-image-img {
+             height: 100%;
+             width: 100%;
+             max-width: 79px;
+             max-height: 79px;
+             border-radius: 4px;
+             cursor: pointer;
+           }
+
+
+           .video {
+             width: 100%;
+           }
+
+           .audio {
+             width: 100%;
+           }
+
+           .new-tag {
+             padding: 2px 4px;
+             position: absolute;
+             top: 3px;
+             right: 3px;
+             width: initial;
+             height: 15px;
+             background-color: var(--active-color);
+             color: #fff;
+             font-size: 10px;
+             transform: scale(.9);
+             font-weight: 600;
+             border-radius: 6px;
+             z-index: 10;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+           }
+
+           .lock-icon {
+             padding: 2px 4px;
+             position: absolute;
+             top: 3px;
+             left: 3px;
+             width: initial;
+             height: 15px;
+             background-color: var(--active-color);
+             color: #fff;
+             font-size: 10px;
+             transform: scale(.9);
+             font-weight: 600;
+             border-radius: 6px;
+             z-index: 10;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+           }
+         }
+       }
+
+     }
+
+     .ant-table-cell.td-center {
+       .td-cell {
+         justify-content: center;
+       }
+     }
+
+     .ant-table-thead {
+       background: var(--bg-main);
+
+       &>tr>th {
+         padding: 4px 8px !important;
+         background: var(--bg-main);
+         color: #889e9e;
+         font-size: 10px;
+         line-height: 1.3;
+         border: none;
+         height: 30px;
+
+         .ant-table-column-sorters {
+           justify-content: flex-start;
+
+           .ant-table-column-title {
+
+             white-space: nowrap;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             flex: none;
+             color: rgb(136, 158, 158);
+             font-size: 10px;
+           }
+         }
+       }
+
+
+       &>tr>th.td-center .ant-table-column-sorters {
+         justify-content: center;
+       }
+
+       &>tr>th.ant-table-column-sort {
+
+         background: var(--bg-main);
+       }
+
+       &>tr>th.ant-table-column-sort:hover {
+         background: var(--bg-main);
+       }
+
+       &>tr>th.ant-table-column-sort {
+         background: var(--bg-main);
+       }
+
+       &>tr>th.ant-table-column-sort:hover {
+         background: #f5f5f5 !important;
+       }
+
+
+       &>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+         display: none;
+       }
+     }
+
+     .ant-table-tbody {
+
+       /* 多选表格选中效果 */
+       .ant-table-row.ant-table-row-selected>.ant-table-cell {
+         // font-size: 13px;
+         background: #e6f4ff;
+       }
+
+       &>tr>td.ant-table-cell {
+         font-size: var(--font-md);
+         font-weight: var(--font-weight-medium);
+         color: var(--primary-color);
+
+         .success-icon {
+           color: #1c8;
+           font-weight: 600;
+           font-size: 16px;
+         }
+
+         .error-icon {
+           color: #ff4d4f;
+           font-weight: 600;
+           font-size: 16px;
+         }
+
+         .ant-empty {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+         }
+
+         .userAvatar {
+           width: 40px;
+           height: 40px;
+           border-radius: 50%;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           background-color: #f0f2f5;
+         }
+
+         .anticon-ellipsis {
+           color: var(--text-primary);
+           font-size: 24px;
+           font-weight: 600;
+         }
+
+         .statusTag {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           gap: 8px;
+         }
+
+         .statusTag {
+           .successIcon {
+             color: var(--active-border-color);
+           }
+
+           .errorIcon {
+             color: var(--color-error-light);
+           }
+         }
+       }
+
+       &>tr>td:first-child .userAvatar {
+         margin-right: 12px;
+       }
+
+       &>tr>td:first-child .userInfoText {
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         line-height: normal;
+       }
+
+       &>tr>td:first-child .userInfoText span {
+         line-height: 1.5;
+       }
+
+       /* 表格排序列悬停样式 */
+       &>tr:hover>td {
+         background-color: #fafafa !important;
+       }
+     }
+
+     /* 多选表格选择框的圆角 */
+
+     .ant-checkbox .ant-checkbox-inner {
+       border-radius: 3px;
+     }
+
+     /* 表格checkbox */
+
+     .ant-checkbox .ant-checkbox-inner {
+       width: 18px;
+       height: 18px;
+     }
+
+     /* 用户信息列布局样式 (User info column layout styles) */
+     /*  .ant-table-tbody>tr>td:first-child>div {
+        height: 100%;
+        align-items: center;
+      } */
+
+     /*
+       * 表格行悬停效果
+       * 1. 使用 !important 确保样式优先级高于 antd 默认样式
+       * 2. 选择器精确匹配表格体中的行的单元格
+       * 3. 设置浅灰色背景提供柔和的视觉反馈
+       * 4. 背景色值为 #fafafa，接近白色，提供轻微的区分度
+       */
+
+     td.ant-table-column-sort {
+       background: #ffff;
+     }
+
+
+     td.ant-table-column-sort {
+       background: #ffff;
+     }
+
+     /* 排序图标颜色 */
+     .ant-table-column-sorter-up.active,
+     .ant-table-column-sorter-down.active {
+       color: var(--text-primary);
+     }
+
+
+   }
+
+   .configurable-table-search-input {
+     width: 300px;
+   }
+
+   /* 确保操作列的内容即使在有 data-action-key 时也能正常显示 */
+   [data-action-key] {
+     display: contents;
+
+     /* 使 div 表现得像其内容一样，不影响布局 */
+     /* 微调下拉菜单按钮，防止被行点击覆盖 */
+     .actionDropdown .actionButton {
+       position: relative;
+       /* 确保 z-index 生效 */
+       z-index: 1;
+       /* 尝试提高层级 */
+     }
+   }
+
+   // 添加拖拽相关样式
+   .drag-visible {
+     text-align: center !important;
+     cursor: grab;
+     width: 50px;
+
+     .anticon {
+       color: #999;
+     }
+   }
+
+   tr.drop-over-downward td {
+     border-bottom: 2px dashed #1890ff;
+   }
+
+   tr.drop-over-upward td {
+     border-top: 2px dashed #1890ff;
+   }
+
+
+   .total-count-display {
+     padding: 16px 0;
+     color: rgba(0, 0, 0, 0.88);
+     font-size: 14px;
+     font-weight: 400;
+     text-align: right;
+
+   }
+
+
+   .expandedRowRender {
+     position: relative;
+     // background: var(--bg-main);
+     // border-radius: 4px;
+     padding: 20px 10px;
+     background: #fff;
+     margin: 0;
+     width: 100%;
+
+     // 继承表格容器的部分样式，但去掉定位相关属性
+     display: flex;
+     flex-direction: column;
+   }
+
+   .largerBadgeDot .ant-badge-dot {
+     width: 10px;
+     /* 设置点的宽度 */
+     height: 10px;
+     /* 设置点的高度 */
+     box-shadow: 0 0 0 1px #fff;
+     /* 可选：保持 Ant Design 的白色边框 */
+   }
+
+   /* 添加操作菜单的样式 */
+   .actionsContainer {
+     display: inline-block;
+     cursor: pointer;
+   }
+
+   .actionButton {
+     padding: 4px 8px;
+   }
+
+   /* 确保dropdown菜单内容与行点击事件分离 */
+   .ant-dropdown-menu {
+     z-index: 1050;
+   }
+
+   /* 撤销操作样式 */
+   .undoMessage {
+     display: flex;
+     align-items: center;
+     margin-left: 16px;
+     background-color: #f0f2f5;
+     padding: 5px 12px;
+     border-radius: 4px;
+     animation: fadeIn 0.3s ease;
+   }
+
+   .undoMessage span {
+     margin-right: 8px;
+     color: rgba(0, 0, 0, 0.65);
+   }
+
+   .undoMessage .ant-btn-link {
+     padding: 0 4px;
+     height: auto;
+   }
+
+   @keyframes fadeIn {
+     from {
+       opacity: 0;
+       transform: translateY(-10px);
+     }
+
+     to {
+       opacity: 1;
+       transform: translateY(0);
+     }
+   }
+
+   /* 修改搜索栏样式 */
+   .searchBar {
+     display: flex;
+     align-items: center;
+     flex-wrap: wrap;
+     margin-bottom: 16px;
+     gap: 8px;
+   }
+
+   .searchInput {
+     width: 300px;
+   }
+
+   /* 给MediaCell对应的表格单元格设置padding为0 */
+   .mediaCellTd {
+     padding: 0 !important;
+   }
+
+   .ant-table-wrapper .ant-table-tbody>tr>td>.ant-table-expanded-row-fixed>.ant-table-wrapper:only-child .ant-table {
+     margin: 20px;
+     margin-block: 0;
+     margin-inline: 0;
+   }
+ }
+
+ //tabs下的列表设置顶部间距
+ .ant-tabs+.configurable-table-container {
+   padding-top: 56px !important;
+ }
+
+ /* 列表项样式 */
+ .item :global(.ant-list-item-meta-title) {
+   margin-bottom: 0 !important;
+   font-weight: 500;
+ }
+
+ .item :global(.ant-list-item-meta-description) {
+   font-size: 12px;
+ }
+
+ .item :global(.ant-list-item-action>li) {
+   padding-left: 8px;
+ }
+
+ .ant-list-item-meta {
+   display: flex;
+   align-items: center;
+ }
+
+ /* 头像和播放图标样式 */
+ .itemAvatar {
+   margin-right: 16px;
+   position: relative;
+
+ }
+
+ .playIcon {
+   position: absolute;
+   bottom: 4px;
+   right: 4px;
+   font-size: 18px;
+   color: #fff;
+ }
+
+ /* 选中状态样式 */
+ .itemSelected {
+   background-color: rgba(0, 144, 255, 0.05);
+ }
+
+ /* 禁用状态样式 */
+ .itemDisabled {
+   opacity: 0.6;
+   cursor: not-allowed;
+ }
+
+ /* 列表项悬停效果 */
+ .item:hover {
+   background-color: rgba(0, 0, 0, 0.02);
+ }

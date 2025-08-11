@@ -1,0 +1,140 @@
+/* FiltersPopover.module.css */
+
+.filterContent {
+    max-width: 650px;
+    max-height: 65vh;
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollContent {
+    padding: 16px;
+    overflow-y: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    /* 确保flex子项可以正确滚动 */
+}
+
+.filterSectionItem {
+    margin: 5px 0;
+}
+
+.filterSectionTitle {
+    font-size: 11px;
+    color: #8c8c8c;
+    /* 灰色 */
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    /* 大写 */
+    font-weight: 600;
+    /* 中等字重 */
+}
+
+.filterSection {
+    margin-bottom: 10px;
+    /* 区域间距 */
+    display: flex;
+    flex-wrap: wrap;
+    /* 允许换行 */
+    gap: 8px;
+    /* 按钮间距 */
+}
+
+.filterButton {
+    padding: 6px 16px;
+    /* 内边距 */
+    border: 1px solid #d9d9d9;
+    /* 默认边框 */
+    border-radius: 16px;
+    /* 更大的圆角 */
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+    color: #595959;
+    /* 默认文字颜色 */
+    background-color: #fff;
+    /* 默认背景 */
+    transition: all 0.3s;
+    /* 过渡效果 */
+    user-select: none;
+    /* 防止文本选中 */
+}
+
+.disabled {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-color: #d9d9d9;
+    color: rgba(0, 0, 0, 0.25);
+    cursor: not-allowed;
+}
+
+.filterButton:not(.disabled):hover {
+    opacity: 0.8;
+}
+
+.filterButton.active {
+    background-color: var(--active-color);
+    /* 选中背景色 */
+    color: #fff;
+    /* 选中文字颜色 */
+    border-color: var(--active-color);
+}
+
+/* 新增分割线样式 */
+.divider {
+    border: none;
+    /* 移除默认边框 */
+    height: 1px;
+    /* 设置高度 */
+    background-color: #f0f0f0;
+    margin: 8px 0;
+}
+
+.filterFooter {
+    flex: 0 0 auto;
+    text-align: center;
+    border-top: 1px solid #f0f0f0;
+    padding: 12px 16px;
+    background: #fff;
+    /* border-radius: 0 0 8px 8px; */
+    /* box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06); */
+}
+
+.footerButton {
+    min-width: 80px;
+}
+
+/* .updateButton {
+    background-color: #31394D;
+    border-color: #31394D;
+    color: #fff;
+} */
+
+.updateButton:hover {
+    background-color: #49546f;
+    /* 悬停时稍浅的颜色 */
+    border-color: #49546f;
+}
+
+/* Popover 整体样式调整 */
+:global(.ant-popover.popoverOverlay .ant-popover-inner) {
+    padding: 0;
+    /* 移除内边距，让我们的 content 占满 */
+    border-radius: 8px;
+    /* 统一圆角 */
+}
+
+:global(.ant-popover.popoverOverlay .ant-popover-arrow) {
+    display: none;
+    /* 隐藏默认箭头 */
+}
+
+/* 增大 Badge 红点 */
+.filterBadge :global(.ant-badge-dot) {
+    width: 8px;
+    /* 原默认为 6px */
+    height: 8px;
+    min-width: 8px;
+    /* 确保宽度 */
+}

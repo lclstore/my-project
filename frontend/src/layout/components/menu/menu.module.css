@@ -1,0 +1,50 @@
+.menuContainer {
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 90%;
+    overflow-y: auto;
+    border-right: 1px solid var(--border-dark);
+    color: var(--text-white);
+    overflow: scroll;
+}
+.menuContainer::-webkit-scrollbar {
+  width: 1px;  /* 纵向滚动条宽度 */
+  height: 1px; /* 横向滚动条高度 */
+}
+/* 自定义菜单项样式：使用 :global() 选择器覆盖 Ant Design 菜单组件的默认样式： */
+.menuContainer :global(.ant-menu) {
+    background-color: transparent;
+    border-right: none;
+    color: var(--text-white);
+    font-size: 16px;
+}
+
+.menuContainer :global(.ant-menu-item) {
+    margin: 0;
+    height: 48px;
+    line-height: 48px;
+    color: var(--text-white);
+    border-bottom: 1px solid var(--primary-border);
+    transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), background-color 0s !important;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.menuContainer :global(.ant-menu-item:hover) {
+    background-color: transparent;
+    color: var(--hover-color) !important;
+}
+
+.menuContainer :global(.ant-menu-item.ant-menu-item-selected) {
+    color: var(--active-color);
+    background-color: transparent !important;
+}
+
+.menuContainer :global(.ant-menu-light .ant-menu-item-active) {
+    background-color: transparent !important;
+}
+
+.menuContainer :global(.ant-menu-item-icon) {
+    color: inherit;
+
+}

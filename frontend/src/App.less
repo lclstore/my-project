@@ -1,0 +1,342 @@
+/* 
+ * 应用程序全局样式
+ * 包含基础布局、组件样式覆盖等
+ */
+
+/* 基础变量引入 */
+@import '../src/assets/styles/variables.css';
+
+/* 根元素样式 */
+#root {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.page-list {
+  margin: 20px;
+}
+
+.page-bg {
+  background: #f5f5f5;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
+}
+
+
+
+/* 通用布局类 */
+.full-height {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* 按钮样式覆盖 */
+.ant-btn {
+  box-shadow: none;
+}
+
+/* Modal 内容区域样式 */
+.ant-modal .ant-modal-content {
+  padding: 0;
+}
+
+/* Modal 头部样式 */
+.ant-modal .ant-modal-header .ant-modal-title {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0 20px;
+  height: 55px;
+  line-height: 55px;
+  background: #243636;
+  color: #fff;
+  border-radius: 13px 13px 0 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Modal 内容区域和底部区域内边距 */
+.ant-modal .ant-modal-body,
+.ant-modal .ant-modal-footer {
+  padding: 24px;
+}
+
+
+/* Modal 居中显示样式 */
+.ant-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-modal-content {
+  width: 850px !important;
+  margin: 0 auto;
+}
+
+/* Modal 取消按钮样式 */
+.ant-modal .ant-btn-default {
+  background-color: #f5f5f5 !important;
+  color: #000000 !important;
+  border: none !important;
+}
+
+.ant-modal .ant-btn-default:hover {
+  background-color: #e8e8e8 !important;
+  color: #000000 !important;
+}
+
+/* modal 默认模式 */
+.modal-default {
+  >div {
+    width: 100%
+  }
+
+  .ant-modal-content {
+    width: 100%;
+    padding: 20px;
+  }
+}
+
+.ant-btn:not(:disabled):focus-visible {
+  outline: none;
+}
+
+.ant-select-selector {
+  box-shadow: none !important;
+}
+
+
+
+.ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: #e9f4f4 !important;
+}
+
+.ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled):hover {
+  background: #f5f5f5 !important;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.searchBar .ant-input-affix-wrapper {
+
+  width: 500px;
+  /* border-color: #fff; */
+}
+
+.filterContent {
+  padding: 16px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.filterContent .filterButtonItem {
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  width: inherit;
+  border-radius: 16px;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 400;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+}
+
+.filterContent .filterButtonItem.active {
+  background-color: var(--active-border-color);
+  border-color: var(--active-border-color);
+  color: #fff;
+}
+
+
+
+
+.editor-form-container {
+  margin: 20px auto;
+  padding: 0 20px;
+  max-width: 724px;
+}
+
+.editor-form-container .edit-form-item {
+  margin-bottom: 26px;
+}
+
+.editor-form-container .ant-input-affix-wrapper {
+  padding: 0 16px;
+}
+
+.editor-form-container .ant-input,
+.editor-form-container .ant-select .ant-select-selector {
+  height: 40px;
+}
+
+
+
+/* .ant-form-item .ant-form-item-explain {
+  padding: 5px 0 10px 0;
+  font-size: 12px;
+} */
+
+.searchBar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.searchBar .ant-input-affix-wrapper {
+
+  width: 500px;
+  /* border-color: #fff; */
+}
+
+.filterContent {
+  padding: 16px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.filterContent .filterButtonItem {
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  width: inherit;
+  border-radius: 16px;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 400;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+}
+
+.filterContent .filterButtonItem.active {
+  background-color: var(--active-border-color);
+  border-color: var(--active-border-color);
+  color: #fff;
+}
+
+
+
+
+.editor-form-container {
+  margin: 20px auto;
+  padding: 0 20px;
+  max-width: 724px;
+}
+
+.editor-form-container .edit-form-item {
+  margin-bottom: 26px;
+}
+
+.editor-form-container .ant-input-affix-wrapper {
+  padding: 0 16px;
+}
+
+.editor-form-container .ant-input,
+.editor-form-container .ant-select .ant-select-selector {
+  height: 40px;
+
+}
+
+
+/* .ant-form-item .ant-form-item-explain {
+  padding: 5px 0 10px 0;
+  font-size: 12px;
+} */
+
+/* tabs样式 */
+.ant-tabs-nav-wrap {
+  margin-top: -10px;
+  background-color: #fff;
+}
+
+.ant-tabs-top {
+  .ant-tabs-tab {
+    font-weight: 600;
+
+    .ant-tabs-tab-btn {
+      outline: none !important;
+    }
+  }
+}
+
+.ant-tabs-top>div>.ant-tabs-nav {
+  margin: 0 !important;
+}
+
+.ant-tabs .ant-tabs-content-holder {
+  display: flex
+}
+
+.ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-wrap {
+  padding: 0 20px;
+}
+
+/* switch开关 */
+.ant-switch.ant-switch-disabled {
+  opacity: 0.85;
+}
+
+/* form公共样式 */
+.ant-form-vertical .ant-form-item:not(.ant-form-item-horizontal) .ant-form-item-label,
+.ant-form-item-control {
+  // padding-left: 20px;
+
+
+}
+
+.inputGroup {
+  // margin-left: -40px;
+  overflow: hidden;
+}
+
+//表单标题字段样式
+.ant-form-item .ant-form-item-label>label {
+  font-size: 14px !important;
+}
+
+//上传文件标题样式
+._uploadLabel_e1kvt_77 {
+  font-size: 14px;
+}
+
+.ant-form-item .ant-form-item-label>label.ant-form-item-required::before {
+  position: relative;
+  margin-left: -12px;
+  /* margin-left: -12px; */
+}
+
+/* 上传组件 */
+.ant-upload-wrapper .ant-upload-drag {
+  background: none;
+  cursor: pointer;
+}
+
+/* 分页组件样式 */
+.ant-table-wrapper .ant-table-pagination,
+.ant-pagination .ant-pagination-options {
+  display: flex;
+  align-items: center;
+}
+
+.rc-virtual-list-holder {
+  max-height: 400px !important;
+}

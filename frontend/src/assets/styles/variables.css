@@ -1,0 +1,117 @@
+:root {
+  /* 主题色 */
+  --primary-color: #243636;
+  --active-color: #1c8;
+  --actives-color: rgb(226, 235, 235);
+  /* 主色，侧边栏背景色 */
+  --primary-border: #1e2d2d;
+  /* 侧边栏边框色 */
+  --hover-color: #c9cccc;
+  /* 强调色，升级按钮 */
+
+  /* 背景色 */
+  --bg-main: #f4f6f6;
+  /* 主要背景色 */
+  --bg-white: #ffffff;
+  /* 白色背景 */
+  --bg-light: #f0f0f0;
+  /* 浅色背景 */
+  --bg-hover: #f8f8f8;
+  /* 悬停背景色 */
+
+  /* 文字颜色 */
+  --text-primary: #243636;
+  /* 主要文字颜色 */
+  --text-secondary: #889e9e;
+  /* 次要文字颜色 */
+  --text-muted: #888888;
+  /* 弱化文字颜色 */
+  --text-white: #ffffff;
+  /* 白色文字 */
+
+  /* 边框颜色 */
+  --border-light: #d9d9d9;
+  /* 浅色边框 */
+  --border-medium: #dddddd;
+  /* 中等边框 */
+  --border-dark: #2d3a4f;
+
+  --active-border-color: #1c8;
+  /* 深色边框 */
+
+  /* 状态颜色 */
+  --color-info: #1890ff;
+  /* 信息色 */
+  --color-info-light: #e6f7ff;
+  /* 浅信息色 */
+  --color-success: #1c8;
+  /* 成功色 */
+  --color-success-light: #f6ffed;
+  /* 浅成功色 */
+  --color-warning: #fa8c16;
+  /* 警告色 */
+  --color-warning-light: #fff7e6;
+  /* 浅警告色 */
+  --color-error: #ff4d4f;
+  /* 错误色 */
+  --color-error-light: #ff4d4f;
+  /* 浅错误色 */
+
+  /* 字体大小 */
+  --font-xxl: 24px;
+  /* 极大文字，页面主标题 */
+  --font-xl: 18px;
+  /* 大文字，小标题 */
+  --font-lg: 16px;
+  /* 中大文字 */
+  --font-md: 14px;
+  /* 中等文字，正文 */
+  --font-md-sm: 13px;
+  /* 中小文字 */
+  --font-sm: 12px;
+  /* 小文字，辅助信息 */
+  --font-xs: 10px;
+  /* 极小文字，按钮文字 */
+
+  /* 圆角 */
+  --border-radius-sm: 4px;
+  /* 小圆角 */
+  --border-radius-md: 8px;
+  /* 中圆角 */
+  --border-radius-pill: 20px;
+  /* 胶囊形状 */
+
+  /* 间距 */
+  --spacing-xxs: 5px;
+  /* 极小间距 */
+  --spacing-xs: 8px;
+  /* 小间距 */
+  --spacing-sm: 10px;
+  /* 较小间距 */
+  --spacing-md: 15px;
+  /* 中等间距 */
+  --spacing-lg: 20px;
+  /* 大间距 */
+  --spacing-xl: 30px;
+  /* 极大间距 */
+
+  /* 阴影 */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  /* 小阴影 */
+  --shadow-md: 0 3px 10px rgba(0, 0, 0, 0.2);
+  /* 中阴影 */
+
+  /* 字体粗细 */
+  --font-weight-normal: 400;
+  /* 常规字重 */
+  --font-weight-medium: 500;
+  /* 中等字重 */
+  --font-weight-semibold: 600;
+  /* 中粗字重 */
+  --font-weight-bold: 700;
+  /* 粗体字重 */
+
+  /* 其他 */
+  --overlay-color: rgba(0, 0, 0, 0.5);
+  /* 遮罩层颜色 */
+}

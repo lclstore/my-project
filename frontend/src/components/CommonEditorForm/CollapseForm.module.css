@@ -1,0 +1,162 @@
+.collapseForm {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    /* background-color: #fff; */
+    /* overflow: auto; */
+}
+
+/* 折叠面板整体样式 */
+.workoutDetailsCollapse {
+    border: none;
+}
+
+.workoutDetailsCollapse:global(.ant-collapse>.ant-collapse-item .ant-collapse-header) {
+    border-radius: 14px !important;
+}
+
+/* 折叠面板项样式 */
+.collapsePanel {
+    margin-bottom: 16px;
+    border: none;
+}
+
+
+/* 激活的折叠面板标题样式 */
+.workoutDetailsCollapse :global(.ant-collapse-item.ant-collapse-item-active) :global(.ant-collapse-header) {
+    border-radius: 16px 16px 0 0 !important;
+    border-color: var(--active-color, #11cc88);
+    border-width: 1px;
+    border-style: solid;
+    border-bottom: none;
+}
+
+/* 折叠面板标题样式 */
+.workoutDetailsCollapse :global(.ant-collapse-item) :global(.ant-collapse-header) {
+    background-color: #e2ebeb;
+    color: var(--primary-color, #004241);
+    font-weight: 600;
+    padding: 12px 16px !important;
+    border-radius: 8px;
+    font-size: 16px;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+/* 折叠面板内容样式 */
+.workoutDetailsCollapse :global(.ant-collapse-item) :global(.ant-collapse-content) {
+    border: none;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+
+/* 激活的折叠面板内容样式 */
+.workoutDetailsCollapse :global(.ant-collapse-item.ant-collapse-item-active) :global(.ant-collapse-content) {
+    border-color: var(--active-color, #11cc88);
+    border-width: 1px;
+    border-style: solid;
+    border-top: none;
+}
+
+/* 折叠面板内容框样式 */
+.workoutDetailsCollapse :global(.ant-collapse-content-box) {
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 0 0 8px 8px;
+}
+
+/* 折叠面板箭头图标样式 */
+.workoutDetailsCollapse :global(.ant-collapse-expand-icon) :global(svg) {
+    color: var(--active-color, #11cc88);
+    font-size: 20px;
+}
+
+/* 折叠面板标题图标样式 */
+.collapseLeftIcon {
+    background-color: #889e9e;
+    color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    margin-right: 8px;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 折叠面板标题样式 */
+.collapseHeader {
+    display: flex;
+    align-items: center;
+}
+
+/* 折叠面板内容区域样式 */
+.collapsePanelContent {
+    padding: 10px 0;
+}
+
+.collapsePanelContentRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 20px;
+}
+
+
+/* 表单项样式 */
+.formItem {
+    margin-bottom: 24px;
+}
+
+/* 表单项标签样式 */
+.formItem :global(.ant-form-item-label)>label {
+    font-weight: 600;
+    color: #333;
+}
+
+/* 表单项输入框样式 */
+.formItem :global(.ant-input),
+.formItem :global(.ant-select-selector),
+.formItem :global(.ant-picker) {
+    border-radius: 4px;
+
+}
+
+/* 必填项标记样式 */
+.formItem :global(.ant-form-item-required)::before {
+    color: #ff4d4f;
+}
+
+.addCollapsePanel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(36, 54, 54);
+}
+
+.structureSectionHeader {
+    /* padding: 0 16px; */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+.structureCollapse {
+    margin-top: 8px;
+}
+
+.deleteIcon {
+    margin-left: auto;
+    color: #ff4d4f;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.deleteIcon:hover {
+    color: #ff7875;
+}
