@@ -1,47 +1,56 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
-const { DatabaseHelper, FileHelper } = require('../config/database');
+const cloudinary = require('cloudinary').v2;
+
+// 配置 Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const router = express.Router();
 
-// 确保上传目录存在
-const uploadDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// 配置multer存储
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDir);
-  },
-  filename: function (req, file, cb) {
-    // 生成唯一文件名
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const ext = path.extname(file.originalname);
-    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
-  }
-});
+// 配置multer使用内存存储（用于Cloudinary上传）
+const storage = multer.memoryStorage();
 
 // 文件过滤器
 const fileFilter = (req, file, cb) => {
   // 允许的文件类型
   const allowedTypes = [
+    // 图片类型
     'image/jpeg',
     'image/png',
     'image/gif',
+    'image/webp',
+    'image/bmp',
+    'image/svg+xml',
+    // 音频类型
+    'audio/mpeg',
+    'audio/wav',
+    'audio/mp3',
+    'audio/mp4',
+    'audio/ogg',
+    // 视频类型
+    'video/mp4',
+    'video/mpeg',
+    'video/quicktime',
+    'video/webm',
+    // 文档类型
     'application/pdf',
     'text/plain',
     'application/msword',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    // 其他类型
+    'application/json',
+    'text/csv'
   ];
 
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error('不支持的文件类型'), false);
+    cb(new Error(`不支持的文件类型: ${file.mimetype}`), false);
   }
 };
 
@@ -88,21 +97,38 @@ const upload = multer({
  *                 data:
  *                   type: object
  *                   properties:
- *                     fileId:
- *                       type: integer
- *                       description: 文件ID
  *                     originalName:
  *                       type: string
  *                       description: 原始文件名
+ *                       example: "888.mp3"
  *                     fileName:
  *                       type: string
- *                       description: 存储文件名
+ *                       description: Cloudinary 文件名
+ *                       example: "uploads/1234567890_888"
  *                     fileSize:
  *                       type: integer
- *                       description: 文件大小
+ *                       description: 文件大小（字节）
+ *                       example: 102400
  *                     mimeType:
  *                       type: string
  *                       description: 文件类型
+ *                       example: "audio/mpeg"
+ *                     cloudinaryUrl:
+ *                       type: string
+ *                       description: Cloudinary 文件URL
+ *                       example: "https://res.cloudinary.com/xxx/raw/upload/v1234567890/uploads/1234567890_888.mp3"
+ *                     cloudinaryId:
+ *                       type: string
+ *                       description: Cloudinary 公共ID
+ *                       example: "uploads/1234567890_888"
+ *                     resourceType:
+ *                       type: string
+ *                       description: 资源类型
+ *                       example: "raw"
+ *                     format:
+ *                       type: string
+ *                       description: 文件格式
+ *                       example: "mp3"
  *       400:
  *         description: 没有上传文件
  *         content:
@@ -116,7 +142,7 @@ const upload = multer({
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-// 文件上传接口
+// 文件上传接口（使用 Cloudinary）
 router.post('/upload', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
@@ -126,32 +152,74 @@ router.post('/upload', upload.single('file'), async (req, res) => {
       });
     }
 
-    // 保存文件信息到数据库
-    const fileData = {
-      originalName: req.file.originalname,
-      fileName: req.file.filename,
-      filePath: req.file.path,
-      fileSize: req.file.size,
-      mimeType: req.file.mimetype,
-      uploadedBy: req.user?.userId || null // 如果有用户认证
-    };
+    console.log('开始上传文件到 Cloudinary:', req.file.originalname);
 
-    const result = await FileHelper.saveFileInfo(fileData);
+    // 上传到 Cloudinary
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: 'auto', // 自动检测文件类型
+          folder: 'uploads', // 存储在 uploads 文件夹
+          public_id: `${Date.now()}_${path.parse(req.file.originalname).name}`, // 生成唯一ID
+          use_filename: true,
+          unique_filename: false
+        },
+        (error, result) => {
+          if (error) {
+            console.error('Cloudinary 上传错误:', error);
+            reject(error);
+          } else {
+            console.log('Cloudinary 上传成功:', result.public_id);
+            resolve(result);
+          }
+        }
+      );
 
+      // 将文件缓冲区写入上传流
+      uploadStream.end(req.file.buffer);
+    });
+
+    // 直接返回 Cloudinary 上传结果给前端
     res.json({
       success: true,
       message: '文件上传成功',
       data: {
-        fileId: result.insertId,
         originalName: req.file.originalname,
-        fileName: req.file.filename,
+        fileName: uploadResult.public_id,
         fileSize: req.file.size,
-        mimeType: req.file.mimetype
+        mimeType: req.file.mimetype,
+        fileUrl: uploadResult.secure_url,
+        uploadUrl: uploadResult.secure_url,
+        fileRelativeUrl: uploadResult.public_id,
+        resourceType: uploadResult.resource_type,
+        format: uploadResult.format,
+        width: uploadResult.width,
+        height: uploadResult.height,
+        duration: uploadResult.duration, // 音频/视频时长
+        createdAt: uploadResult.created_at
       }
     });
 
   } catch (error) {
     console.error('文件上传错误:', error);
+
+    // 根据错误类型返回不同的错误信息
+    if (error.message && error.message.includes('File size too large')) {
+      return res.status(400).json({
+        success: false,
+        message: '文件大小超过限制',
+        error: error.message
+      });
+    }
+
+    if (error.message && error.message.includes('Invalid image file')) {
+      return res.status(400).json({
+        success: false,
+        message: '无效的文件格式',
+        error: error.message
+      });
+    }
+
     res.status(500).json({
       success: false,
       message: '文件上传失败',
@@ -160,265 +228,6 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   }
 });
 
-// 批量文件上传接口
-router.post('/upload-multiple', upload.array('files', 5), async (req, res) => {
-  try {
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: '没有上传文件'
-      });
-    }
 
-    const uploadResults = [];
-
-    for (const file of req.files) {
-      try {
-        const fileData = {
-          originalName: file.originalname,
-          fileName: file.filename,
-          filePath: file.path,
-          fileSize: file.size,
-          mimeType: file.mimetype,
-          uploadedBy: req.user?.userId || null
-        };
-
-        const result = await FileHelper.saveFileInfo(fileData);
-
-        uploadResults.push({
-          success: true,
-          fileId: result.insertId,
-          originalName: file.originalname,
-          fileName: file.filename
-        });
-      } catch (error) {
-        uploadResults.push({
-          success: false,
-          originalName: file.originalname,
-          error: error.message
-        });
-      }
-    }
-
-    res.json({
-      success: true,
-      message: '批量上传完成',
-      data: uploadResults
-    });
-
-  } catch (error) {
-    console.error('批量文件上传错误:', error);
-    res.status(500).json({
-      success: false,
-      message: '批量文件上传失败',
-      error: error.message
-    });
-  }
-});
-
-/**
- * @swagger
- * /api/files/download/{fileId}:
- *   get:
- *     summary: 文件下载
- *     description: 根据文件ID下载文件
- *     tags: [Files]
- *     parameters:
- *       - in: path
- *         name: fileId
- *         required: true
- *         schema:
- *           type: integer
- *         description: 文件ID
- *     responses:
- *       200:
- *         description: 文件下载成功
- *         content:
- *           application/octet-stream:
- *             schema:
- *               type: string
- *               format: binary
- *       404:
- *         description: 文件不存在
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: 服务器内部错误
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-// 文件下载接口
-router.get('/download/:fileId', async (req, res) => {
-  try {
-    const { fileId } = req.params;
-
-    // 获取文件信息
-    const fileResult = await FileHelper.getFileInfo(fileId);
-
-    if (!fileResult.success || !fileResult.data) {
-      return res.status(404).json({
-        success: false,
-        message: '文件不存在'
-      });
-    }
-
-    const fileInfo = fileResult.data;
-    const filePath = fileInfo.file_path;
-
-    // 检查文件是否存在
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({
-        success: false,
-        message: '文件已被删除'
-      });
-    }
-
-    // 更新下载次数
-    await FileHelper.incrementDownloadCount(fileId);
-
-    // 设置响应头
-    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(fileInfo.original_name)}"`);
-    res.setHeader('Content-Type', fileInfo.mime_type);
-    res.setHeader('Content-Length', fileInfo.file_size);
-
-    // 发送文件
-    res.sendFile(path.resolve(filePath));
-
-  } catch (error) {
-    console.error('文件下载错误:', error);
-    res.status(500).json({
-      success: false,
-      message: '文件下载失败',
-      error: error.message
-    });
-  }
-});
-
-// 获取文件列表接口
-router.get('/list', async (req, res) => {
-  try {
-    const {
-      page = 1,
-      pageSize = 10,
-      userId = null
-    } = req.query;
-
-    let result;
-
-    if (userId) {
-      // 获取指定用户的文件
-      result = await FileHelper.getUserFiles(userId, {
-        page: parseInt(page),
-        pageSize: parseInt(pageSize)
-      });
-    } else {
-      // 获取所有文件
-      result = await DatabaseHelper.select('files', {
-        orderBy: 'upload_time DESC',
-        limit: parseInt(pageSize),
-        offset: (parseInt(page) - 1) * parseInt(pageSize)
-      });
-    }
-
-    res.json({
-      success: true,
-      data: result.data,
-      pagination: {
-        page: parseInt(page),
-        pageSize: parseInt(pageSize),
-        total: result.count
-      }
-    });
-
-  } catch (error) {
-    console.error('获取文件列表错误:', error);
-    res.status(500).json({
-      success: false,
-      message: '获取文件列表失败',
-      error: error.message
-    });
-  }
-});
-
-// 删除文件接口
-router.delete('/:fileId', async (req, res) => {
-  try {
-    const { fileId } = req.params;
-    const userId = req.user?.userId; // 如果有用户认证
-
-    // 获取文件信息
-    const fileResult = await FileHelper.getFileInfo(fileId);
-
-    if (!fileResult.success || !fileResult.data) {
-      return res.status(404).json({
-        success: false,
-        message: '文件不存在'
-      });
-    }
-
-    const fileInfo = fileResult.data;
-
-    // 删除物理文件
-    if (fs.existsSync(fileInfo.file_path)) {
-      fs.unlinkSync(fileInfo.file_path);
-    }
-
-    // 删除数据库记录
-    const deleteResult = await FileHelper.deleteFileRecord(fileId, userId);
-
-    if (deleteResult.affectedRows === 0) {
-      return res.status(403).json({
-        success: false,
-        message: '没有权限删除此文件'
-      });
-    }
-
-    res.json({
-      success: true,
-      message: '文件删除成功'
-    });
-
-  } catch (error) {
-    console.error('删除文件错误:', error);
-    res.status(500).json({
-      success: false,
-      message: '删除文件失败',
-      error: error.message
-    });
-  }
-});
-
-// 获取文件信息接口
-router.get('/:fileId', async (req, res) => {
-  try {
-    const { fileId } = req.params;
-
-    const result = await FileHelper.getFileInfo(fileId);
-
-    if (!result.success || !result.data) {
-      return res.status(404).json({
-        success: false,
-        message: '文件不存在'
-      });
-    }
-
-    res.json({
-      success: true,
-      data: result.data
-    });
-
-  } catch (error) {
-    console.error('获取文件信息错误:', error);
-    res.status(500).json({
-      success: false,
-      message: '获取文件信息失败',
-      error: error.message
-    });
-  }
-});
 
 module.exports = router;

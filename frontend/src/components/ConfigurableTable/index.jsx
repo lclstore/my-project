@@ -443,6 +443,8 @@ const ConfigurableTable = forwardRef((props, ref) => {
                 searchConfig={searchConfig}
                 searchValue={searchValue}
                 onSearchChange={(value) => {
+                    console.log(value);
+
                     setSearchValue(value);
                 }}
                 filterConfig={filterConfig}

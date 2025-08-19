@@ -30,36 +30,25 @@ export const uploadFile = async function ({ file, dirKey }) {
         localUrl: URL.createObjectURL(file)
     }
     // 准备上传参数
-    const params = {
-        dirKey: `${dirKey}-${fileType}`,
-        fileName: file.name,
-        contentType: fileMINEType
-    };
-    // 获取上传URL
-    let fileUrl = await new Promise(resolve => {
-        request.get({
-            url: "/s3/getTempUploadUrl",
-            data: params,
-            callback: res => {
-                res.error ? resolve('error') : resolve(res.data.data)
-            }
-        })
-    })
+    const formData = new FormData();
+    formData.append('dirKey', `${dirKey}-${fileType}`);
+    formData.append('fileName', file.name);
+    formData.append('contentType', fileMINEType);
+    formData.append('file', file);  // 关键，file 是文件对象
 
-    if (fileUrl !== 'error') {
-        // 执行文件上传
-        await fetch(fileUrl.uploadUrl, {
-            method: 'PUT',
-            body: file,
-        }).then(() => {
-            // 上传成功
-            returnData = { ...returnData, ...fileUrl }
-            Reflect.deleteProperty(returnData, 'uploadUrl')
-        }).catch(() => returnData.error = true)
-    } else {
-        returnData.error = true
-    }
-    return returnData
+    let fileUrl = await new Promise(resolve => {
+        request.post({
+            url: "/files/upload",
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data'  // 这一步视 request 库是否自动设置
+            },
+            callback: res => {
+                res.error ? resolve('error') : resolve(res.data.data);
+            }
+        });
+    });
+    return fileUrl;
 }
 
 // ==================== 表格数据操作 ====================
@@ -253,7 +242,7 @@ export const getEnumList = async () => {
             data: {},
             callback: (res) => {
                 const enumList = {}
-                res.data.data.forEach(i => {
+                res?.data?.data?.forEach(i => {
                     enumList[i.displayName] = i.datas.map(data => ({
                         value: data.enumName,
                         label: data.displayName,

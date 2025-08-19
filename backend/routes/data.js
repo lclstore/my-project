@@ -1,8 +1,103 @@
 const express = require('express');
-const { DatabaseHelper, paginate, transaction } = require('../config/database');
+const { DatabaseHelper, paginate, transaction, BusinessHelper } = require('../config/database');
+const { sendSuccess, sendError } = require('../utils/response');
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /api/data/{table}:
+ *   get:
+ *     summary: 通用数据查询接口
+ *     description: 分页查询指定表的数据，支持条件筛选和排序
+ *     tags: [Data]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: table
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 表名
+ *         example: "user"
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         description: 页码
+ *         example: 1
+ *       - in: query
+ *         name: pageSize
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 100
+ *           default: 10
+ *         description: 每页数量
+ *         example: 10
+ *       - in: query
+ *         name: orderBy
+ *         schema:
+ *           type: string
+ *         description: 排序字段和方式
+ *         example: "id DESC"
+ *       - in: query
+ *         name: where
+ *         schema:
+ *           type: string
+ *         description: WHERE条件
+ *         example: "status = 1"
+ *     responses:
+ *       200:
+ *         description: 查询成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "查询成功"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                 pagination:
+ *                   type: object
+ *                   properties:
+ *                     page:
+ *                       type: integer
+ *                     pageSize:
+ *                       type: integer
+ *                     total:
+ *                       type: integer
+ *                     totalPages:
+ *                       type: integer
+ *       400:
+ *         description: 参数错误
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: 未授权
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: 服务器内部错误
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 // 通用查询接口
 router.get('/:table', async (req, res) => {
   try {
@@ -59,6 +154,65 @@ router.get('/:table', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/data/{table}/{id}:
+ *   get:
+ *     summary: 通用单条数据查询接口
+ *     description: 根据ID查询指定表的单条数据
+ *     tags: [Data]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: table
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 表名
+ *         example: "user"
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: 记录ID
+ *         example: 1
+ *     responses:
+ *       200:
+ *         description: 查询成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "查询成功"
+ *                 data:
+ *                   type: object
+ *       404:
+ *         description: 记录不存在
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: 未授权
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: 服务器内部错误
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 // 通用单条查询接口
 router.get('/:table/:id', async (req, res) => {
   try {
@@ -91,36 +245,24 @@ router.get('/:table/:id', async (req, res) => {
   }
 });
 
-// 通用插入接口
+// 通用插入接口（带参数校验）
 router.post('/:table', async (req, res) => {
-  try {
-    const { table } = req.params;
-    const data = req.body;
+  const { table } = req.params;
 
-    if (!data || Object.keys(data).length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: '数据不能为空'
-      });
-    }
+  // 使用带验证的插入方法
+  const result = await BusinessHelper.insertWithValidation(table, req.body);
 
-    const result = await DatabaseHelper.insert(table, data);
-
+  if (result.success) {
     res.status(201).json({
       success: true,
-      message: '数据创建成功',
-      data: {
-        id: result.insertId,
-        affectedRows: result.affectedRows
-      }
+      message: result.message,
+      data: result.data
     });
-
-  } catch (error) {
-    console.error('插入数据错误:', error);
-    res.status(500).json({
+  } else {
+    res.status(result.statusCode).json({
       success: false,
-      message: '创建数据失败',
-      error: error.message
+      message: result.message,
+      error: result.error
     });
   }
 });
@@ -156,64 +298,60 @@ router.post('/:table/batch', async (req, res) => {
   }
 });
 
-// 通用更新接口
+// 通用更新接口（带参数校验）
 router.put('/:table/:id', async (req, res) => {
-  try {
-    const { table, id } = req.params;
-    const data = req.body;
+  const { table, id } = req.params;
 
-    if (!data || Object.keys(data).length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: '更新数据不能为空'
-      });
-    }
+  // 使用带验证的更新方法
+  const result = await BusinessHelper.updateWithValidation(table, id, req.body);
 
-    const result = await DatabaseHelper.update(table, data, 'id = ?', [id]);
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: '数据不存在或未发生变化'
-      });
-    }
-
+  if (result.success) {
     res.json({
       success: true,
-      message: '数据更新成功',
-      data: {
-        affectedRows: result.affectedRows,
-        changedRows: result.changedRows
-      }
+      message: result.message,
+      data: result.data
     });
-
-  } catch (error) {
-    console.error('更新数据错误:', error);
-    res.status(500).json({
+  } else {
+    res.status(result.statusCode).json({
       success: false,
-      message: '更新数据失败',
-      error: error.message
+      message: result.message,
+      error: result.error
     });
   }
 });
 
-// 通用删除接口
+// 通用删除接口（逻辑删除）
 router.delete('/:table/:id', async (req, res) => {
   try {
     const { table, id } = req.params;
 
-    const result = await DatabaseHelper.delete(table, 'id = ?', [id]);
+    // 检查表是否有 is_deleted 字段
+    const hasIsDeletedField = await DatabaseHelper.checkColumnExists(table, 'is_deleted');
+
+    let result;
+    if (hasIsDeletedField) {
+      // 使用逻辑删除
+      result = await DatabaseHelper.update(
+        table,
+        { is_deleted: 1, update_time: new Date() },
+        'id = ? AND is_deleted = 0',
+        [id]
+      );
+    } else {
+      // 如果表没有 is_deleted 字段，使用物理删除（向后兼容）
+      result = await DatabaseHelper.delete(table, 'id = ?', [id]);
+    }
 
     if (result.affectedRows === 0) {
       return res.status(404).json({
         success: false,
-        message: '数据不存在'
+        message: '数据不存在或已被删除'
       });
     }
 
     res.json({
       success: true,
-      message: '数据删除成功',
+      message: hasIsDeletedField ? '数据删除成功（逻辑删除）' : '数据删除成功',
       data: {
         affectedRows: result.affectedRows
       }
@@ -310,8 +448,17 @@ router.post('/:table/transaction', async (req, res) => {
             break;
 
           case 'delete':
-            sql = `DELETE FROM ${table} WHERE ${where}`;
-            params = whereParams;
+            // 检查表是否有 is_deleted 字段
+            const hasIsDeletedField = await DatabaseHelper.checkColumnExists(table, 'is_deleted');
+            if (hasIsDeletedField) {
+              // 使用逻辑删除
+              sql = `UPDATE ${table} SET is_deleted = 1, update_time = CURRENT_TIMESTAMP WHERE ${where} AND is_deleted = 0`;
+              params = whereParams;
+            } else {
+              // 物理删除（向后兼容）
+              sql = `DELETE FROM ${table} WHERE ${where}`;
+              params = whereParams;
+            }
             break;
 
           default:

@@ -17,8 +17,10 @@ export default function Sider() {
                 url: `/user/getMyInfo`,
                 load: true,
                 callback: res => {
-                    console.log(res.data.data)
-                    setUserInfo(res.data.data)
+                    if (res.data.success) {
+                        console.log(res.data.data)
+                        setUserInfo(res.data.data)
+                    }
                     // setUser(res.data.data)
                 }
             });

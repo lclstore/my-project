@@ -66,7 +66,7 @@ export default function UserEditorWithCommon() {
     const getData = async () => {
         return new Promise(resolve => {
             request.get({
-                url: `/workoutSetttings/detail`,
+                url: `/workoutSettings/detail`,
                 load: true,
                 callback: res => {
                     resolve(res.data.data)
@@ -1216,7 +1216,7 @@ export default function UserEditorWithCommon() {
 
     return (
         <CommonEditorForm
-            moduleKey='workoutSetttings'
+            moduleKey='workoutSettings'
             // 传递当前formFields状态
             fields={formFields}
             // 提供更新配置项回调

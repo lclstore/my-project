@@ -59,7 +59,7 @@ const options = {
             password: {
               type: 'string',
               description: '密码（MD5加密）',
-              example: 'e10adc3949ba59abbe56e057f20f883e'
+              example: '29e020c32b5058a5b99926b9b992d3d7'
             },
             name: {
               type: 'string',
@@ -109,7 +109,7 @@ const options = {
             password: {
               type: 'string',
               description: '密码（前端MD5加密后）',
-              example: 'e10adc3949ba59abbe56e057f20f883e'
+              example: '29e020c32b5058a5b99926b9b992d3d7'
             }
           }
         },
@@ -328,9 +328,42 @@ const options = {
       }
     },
     tags: [
+
       {
-        name: 'User',
-        description: '用户认证相关接口'
+        name: 'Home',
+        description: '首页管理'
+      },
+      {
+        name: 'Publish',
+        description: '版本信息管理'
+      },
+      {
+        name: 'Sound',
+        description: '音频资源管理'
+      },
+      {
+        name: 'Exercise',
+        description: '动作资源管理'
+      },
+      {
+        name: 'WorkoutSetttings',
+        description: '动作训练设置管理'
+      },
+      {
+        name: 'Category',
+        description: '分类管理'
+      },
+      {
+        name: 'Workout',
+        description: '动作训练管理'
+      },
+      {
+        name: 'Categories',
+        description: '收藏管理'
+      },
+      {
+        name: 'Programs',
+        description: '程序管理'
       },
       {
         name: 'Files',
@@ -341,13 +374,17 @@ const options = {
         description: '通用数据操作接口'
       },
       {
-        name: 'Enums',
+        name: 'Enum',
         description: '枚举管理相关接口'
       },
       {
-        name: 'System',
-        description: '系统相关接口'
-      }
+        name: 'User',
+        description: '用户认证相关接口'
+      },
+      {
+        name: 'Common',
+        description: '公共接口'
+      },
     ]
   },
   apis: [

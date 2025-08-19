@@ -325,7 +325,6 @@ const FileUpload = ({
                     result.error : new Error(String(result.error.message || result.error || 'Unknown upload error'));
                 throw errorToThrow;
             }
-
             // 只调用一次上传成功回调，避免多次触发消息提示
             onSuccess(result);
 
@@ -969,14 +968,14 @@ const FileUpload = ({
                                 <div className={styles.uploadActionsIcons}>
                                     {/* 暂时只允许图片下载 */}
                                     {
-                                        getFileType(displayValue) === 'image' && <DownloadOutlined style={{color: '#52C41A'}}  className={styles.actionIcon} onClick={(e) => {
+                                        getFileType(displayValue) === 'image' && <DownloadOutlined style={{ color: '#52C41A' }} className={styles.actionIcon} onClick={(e) => {
                                             e.stopPropagation();
                                             window.open(displayValue, '_blank');
                                         }}
                                             disabled={disabled} />
                                     }
-                                    <EditOutlined style={{color: '#00a0d4'}} onClick={triggerFileSelect} className={styles.actionIcon} />
-                                    <DeleteOutlined style={{color: '#FF4D4F'}} onClick={handleClearFile} className={styles.actionIcon} />
+                                    <EditOutlined style={{ color: '#00a0d4' }} onClick={triggerFileSelect} className={styles.actionIcon} />
+                                    <DeleteOutlined style={{ color: '#FF4D4F' }} onClick={handleClearFile} className={styles.actionIcon} />
                                 </div>
                                 :
                                 // <div className={styles.uploadActions}>

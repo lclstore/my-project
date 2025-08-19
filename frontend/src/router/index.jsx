@@ -29,7 +29,7 @@ const SuspenseWrapper = ({ component }) => (
       background: 'rgba(255, 255, 255, 0.8)',
       zIndex: 1000
     }}>
-      <Spin size="large" tip="Loading..." />
+      {/* <Spin size="large" tip="Loading..." /> */}
     </div>
   }>
     {component}

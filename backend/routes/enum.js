@@ -1,5 +1,4 @@
 const express = require('express');
-const { verifyToken } = require('../middleware/auth');
 const { ERROR_CODES, sendSuccessList, sendError } = require('../utils/response');
 const router = express.Router();
 
@@ -71,6 +70,15 @@ const enumsData = {
       { code: 1, name: "Warm Up", displayName: "Warm Up", enumName: "WARM_UP" },
       { code: 2, name: "Main", displayName: "Main", enumName: "MAIN" },
       { code: 3, name: "Cool Down", displayName: "Cool Down", enumName: "COOL_DOWN" }
+    ]
+  },
+  BizExerciseStatusEnums: {
+    name: "BizExerciseStatusEnums",
+    displayName: "BizExerciseStatusEnums",
+    datas: [
+      { code: 1, name: "Draft", displayName: "Draft", enumName: "DRAFT" },
+      { code: 2, name: "Enabled", displayName: "Enabled", enumName: "ENABLED" },
+      { code: 3, name: "Disabled", displayName: "Disabled", enumName: "DISABLED" }
     ]
   },
   BizGenerateTaskStatusEnums: {
@@ -206,6 +214,24 @@ const enumsData = {
       { code: 2, name: "General", displayName: "General", enumName: "GENERAL" }
     ]
   },
+  BizSoundStatusEnums: {
+    name: "BizSoundStatusEnums",
+    displayName: "BizSoundStatusEnums",
+    datas: [
+      { code: 1, name: "Draft", displayName: "Draft", enumName: "DRAFT" },
+      { code: 2, name: "Enabled", displayName: "Enabled", enumName: "ENABLED" },
+      { code: 3, name: "Disabled", displayName: "Disabled", enumName: "DISABLED" }
+    ]
+  },
+  BizStatusEnums: {
+    name: "BizStatusEnums",
+    displayName: "BizStatusEnums",
+    datas: [
+      { code: 1, name: "Draft", displayName: "Draft", enumName: "DRAFT" },
+      { code: 2, name: "Enabled", displayName: "Enabled", enumName: "ENABLED" },
+      { code: 3, name: "Disabled", displayName: "Disabled", enumName: "DISABLED" }
+    ]
+  },
   BizTemplateDurationEnums: {
     name: "BizTemplateDurationEnums",
     displayName: "BizTemplateDurationEnums",
@@ -228,11 +254,11 @@ const enumsData = {
 
 /**
  * @swagger
- * /enums/list:
+ * /enum/list:
  *   get:
  *     summary: 获取所有枚举数据
  *     description: 返回系统中所有的枚举定义（需要JWT认证）
- *     tags: [Enums]
+ *     tags: [Enum]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -298,7 +324,7 @@ const enumsData = {
  *               $ref: '#/components/schemas/Error'
  */
 // 获取所有枚举数据
-router.get('/list', verifyToken, (req, res) => {
+router.get('/list', (req, res) => {
   try {
     const data = Object.values(enumsData);
     sendSuccessList(res, data);
@@ -310,3 +336,4 @@ router.get('/list', verifyToken, (req, res) => {
 });
 
 module.exports = router;
+module.exports.enumsData = enumsData;

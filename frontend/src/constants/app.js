@@ -4,7 +4,7 @@
 
 // localStorage键名
 export const storageKeys = {
-    TOKEN: 'admin_token',
+    TOKEN: 'template-cms-token',  // 保持与现有项目一致
     USER_INFO: 'admin_user',
     THEME: 'admin_theme',
     LANGUAGE: 'admin_language',

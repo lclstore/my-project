@@ -124,9 +124,8 @@ export default function UserEditorWithCommon() {
     ], []); // 使用useMemo优化性能，避免每次渲染重新创建
 
     const saveBeforeTransform = ({ formValues }) => {
-
         // 如果密码为******，则不提交密码
-        if (formValues.password.includes('***')) {
+        if (formValues.password?.includes('***')) {
             formValues.password = null
         }
         return formValues
@@ -152,7 +151,7 @@ export default function UserEditorWithCommon() {
     ]
     // 保存成功后，获取用户信息
     const handleConfirmSuccess = (ret) => {
-        debugger
+
         if (ret?.success) {
             setIsRefresh(true)//刷新表单
             getUser()

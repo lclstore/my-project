@@ -53,7 +53,7 @@ export default function UserEditorWithCommon() {
 
     useEffect(() => {
         request.get({
-            url: `/workoutSetttings/detail`,
+            url: `/workoutSettings/detail`,
             callback: res => {
                 workoutSettingInfo.current = res?.data?.data;
                 window.sessionStorage.setItem('workoutSettingInfo', JSON.stringify(res?.data?.data || {}));

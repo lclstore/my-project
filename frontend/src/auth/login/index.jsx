@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useContext } from 'react';
+import React, { useCallback, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button, Modal } from 'antd';
 import { UserOutlined, LockOutlined, QuestionCircleOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
@@ -10,7 +10,7 @@ import loginLeftImg from '@/assets/images/login-left.svg';
 import md5 from "md5"
 import './login.css'; // 将样式移到单独的CSS文件中
 import request from "@/request/index.js";
-import { useStore } from "@/store/index.js"; 
+import { useStore } from "@/store/index.js";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -28,6 +28,10 @@ const Login = () => {
     const localDown = (token) => {
         localStorage.setItem(settings.request.tokenName, token);
     };
+    // 清除token
+    useEffect(() => {
+        localStorage.removeItem(settings.request.tokenName)
+    }, []);
 
     // 登录逻辑
     const login = useCallback(() => {

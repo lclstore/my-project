@@ -113,7 +113,7 @@ class Request {
                 if (config.load) {
                     loading(false)
                 }
-                message.open({ content: err, type: 'error' }, 'error')
+                message.open({ content: err.message, type: 'error' }, 'error')
                 config.callback({ error: err })
                 console.log(err)
             })

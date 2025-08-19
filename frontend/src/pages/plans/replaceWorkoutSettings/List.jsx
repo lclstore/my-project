@@ -41,7 +41,7 @@ export default function WorkoutsList() {
     const allColumnDefinitions = useMemo(() => {
         return [
             {
-                title: 'Name', dataIndex: 'name', width: 350, 
+                title: 'Name', dataIndex: 'name', width: 350,
                 // sorter: true,
                 render: renderNameColumn
             },
@@ -57,7 +57,7 @@ export default function WorkoutsList() {
                 align: 'center',
                 dataIndex: 'ruleList',
                 render: (text, row) =>
-                (text.map(rule =>
+                (text?.map(rule =>
                     `(${optionsBase.getLabel("BizPlanReplaceSettingsRuleMatchKeyEnums", rule.matchKey)} ${optionsBase.getLabel("BizPlanReplaceSettingsRuleMatchConditionEnums", rule.matchCondition)} ${optionsBase.getLabel(rule.matchKey === "GENDER" ? "BizPlanGenderEnums" : "BizPlanUserEnums", rule.matchValue)})`)
                     .join("\n& ")
                 )

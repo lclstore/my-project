@@ -20,27 +20,28 @@ const ERROR_CODES = {
   EMPTY_TOKEN: 'EMPTY_TOKEN',
   INVALID_TOKEN: 'INVALID_TOKEN',
   TOKEN_EXPIRED: 'TOKEN_EXPIRED',
-  
+
   // 用户相关错误
   USER_NOT_FOUND: 'USER_NOT_FOUND',
-  INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
+  INVALID_CREDENTIALS: 'USR005',
   USER_ALREADY_EXISTS: 'USER_ALREADY_EXISTS',
-  
+
   // 数据相关错误
   ENUM_NOT_FOUND: 'ENUM_NOT_FOUND',
   ENUM_VALUE_NOT_FOUND: 'ENUM_VALUE_NOT_FOUND',
   MISSING_KEYWORD: 'MISSING_KEYWORD',
-  
+
   // 通用错误
   MISSING_REQUIRED_FIELDS: 'MISSING_REQUIRED_FIELDS',
   INVALID_PARAMETERS: 'INVALID_PARAMETERS',
   INTERNAL_ERROR: 'INTERNAL_ERROR',
   DATABASE_ERROR: 'DATABASE_ERROR',
-  
+
   // 文件相关错误
   FILE_NOT_FOUND: 'FILE_NOT_FOUND',
   FILE_UPLOAD_ERROR: 'FILE_UPLOAD_ERROR',
-  INVALID_FILE_TYPE: 'INVALID_FILE_TYPE'
+  INVALID_FILE_TYPE: 'INVALID_FILE_TYPE',
+  RECORD_NOT_FOUND: 'RECORD_NOT_FOUND'
 };
 
 // 错误消息定义
@@ -50,20 +51,20 @@ const ERROR_MESSAGES = {
   [ERROR_CODES.EMPTY_TOKEN]: '令牌不能为空',
   [ERROR_CODES.INVALID_TOKEN]: '无效的令牌',
   [ERROR_CODES.TOKEN_EXPIRED]: '令牌已过期',
-  
+
   [ERROR_CODES.USER_NOT_FOUND]: '用户不存在',
   [ERROR_CODES.INVALID_CREDENTIALS]: '用户名或密码错误',
   [ERROR_CODES.USER_ALREADY_EXISTS]: '用户已存在',
-  
+
   [ERROR_CODES.ENUM_NOT_FOUND]: '枚举不存在',
   [ERROR_CODES.ENUM_VALUE_NOT_FOUND]: '枚举值不存在',
   [ERROR_CODES.MISSING_KEYWORD]: '搜索关键词不能为空',
-  
+
   [ERROR_CODES.MISSING_REQUIRED_FIELDS]: '缺少必填字段',
   [ERROR_CODES.INVALID_PARAMETERS]: '参数无效',
   [ERROR_CODES.INTERNAL_ERROR]: '服务器内部错误',
   [ERROR_CODES.DATABASE_ERROR]: '数据库操作失败',
-  
+
   [ERROR_CODES.FILE_NOT_FOUND]: '文件不存在',
   [ERROR_CODES.FILE_UPLOAD_ERROR]: '文件上传失败',
   [ERROR_CODES.INVALID_FILE_TYPE]: '不支持的文件类型'
@@ -169,7 +170,7 @@ const sendSuccessList = (res, data = [], message = null, statusCode = 200) => {
  * @param {any} data - 错误相关数据
  */
 const sendError = (res, errCode, customMessage = null, statusCode = 400, data = null) => {
-  res.status(statusCode).json(error(errCode, customMessage, data));
+  res.status(statusCode).json(error(errCode, customMessage, data,));
 };
 
 /**

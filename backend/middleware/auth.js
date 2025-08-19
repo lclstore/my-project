@@ -1,27 +1,20 @@
 const jwt = require('jsonwebtoken');
-const { ERROR_CODES, sendError } = require('../utils/response');
+const { ERROR_CODES, sendError, sendSuccess } = require('../utils/response');
 const { isBlacklisted } = require('../utils/tokenBlacklist');
+const { isPublicRoute } = require('../config/publicRoutes');
 
 // JWT验证中间件-验证令牌
 const verifyToken = (req, res, next) => {
   try {
-    // 从请求头获取token
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader) {
-      return sendError(res, ERROR_CODES.MISSING_TOKEN, null, 401);
+    // 检查是否为公开路由
+    if (isPublicRoute(req.method, req.path)) {
+      return next();
     }
 
-    // 检查Bearer格式
-    if (!authHeader.startsWith('Bearer ')) {
-      return sendError(res, ERROR_CODES.INVALID_TOKEN_FORMAT, null, 401);
-    }
-
-    // 提取token
-    const token = authHeader.substring(7); // 移除 'Bearer ' 前缀
+    const token = req.headers.token
 
     if (!token) {
-      return sendError(res, ERROR_CODES.EMPTY_TOKEN, null, 401);
+      return sendError(res, ERROR_CODES.MISSING_TOKEN, null, 401);
     }
 
     // 检查token是否在黑名单中
@@ -48,7 +41,11 @@ const verifyToken = (req, res, next) => {
     }
 
     if (error.name === 'TokenExpiredError') {
-      return sendError(res, ERROR_CODES.TOKEN_EXPIRED, null, 401);
+      return res.status(200).json({
+        success: false,
+        errCode: "USR001",
+        errMessage: "The user is not logged in."
+      });
     }
 
     return sendError(res, ERROR_CODES.INTERNAL_ERROR, null, 500);

@@ -155,7 +155,7 @@ export default function UserEditorWithCommon() {
     const getWorkoutSettingConfig = async () => {
         return new Promise(resolve => {
             request.get({
-                url: `/workoutSetttings/detail`,
+                url: `/workoutSettings/detail`,
                 load: false,
                 callback: res => {
                     resolve(res.data.data)
@@ -164,36 +164,40 @@ export default function UserEditorWithCommon() {
         })
     }
     const formValidate = ({ formValues }) => {
-        const duration = 15;
-        const { previewVideoReps, executionVideoReps, introVideoReps } = configRef.current;
-        const previewDuration = duration * previewVideoReps / 60;
-        const executionDuration = duration * executionVideoReps / 60;
-        const introDuration = duration * introVideoReps / 60;
-        let totalStructureDuration = 0;
-        // 如果previewVideoReps, executionVideoReps, introVideoReps都为0，则提示错误
-        if (
-            previewVideoReps == undefined ||
-            previewVideoReps == null ||
-            !executionVideoReps ||
-            introVideoReps == undefined ||
-            introVideoReps == null
-        ) {
-            message.error(`The workout settings do not match the Duration.`);
-            return false;
-        }
-        const unitList = formValues.unitList;
-        unitList.forEach((item) => {
-            const round = item.round;
-            const count = item.count;
-            totalStructureDuration += (previewDuration + executionDuration) * round * count;
-        })
-        const totalDuration = Math.round((introDuration + totalStructureDuration));
-        const [, start, end] = formValues.durationCode.split('_').map(Number);
-        if (totalDuration < start || totalDuration >= end) {
-            message.error(`The template do not match the Duration.`);
-            return false;
-        }
+        if (formValues.status === 'DRAFT') {
+            return true
+        } else {
+            const duration = 15;
+            const { previewVideoReps, executionVideoReps, introVideoReps } = configRef.current;
+            const previewDuration = duration * previewVideoReps / 60;
+            const executionDuration = duration * executionVideoReps / 60;
+            const introDuration = duration * introVideoReps / 60;
+            let totalStructureDuration = 0;
+            // 如果previewVideoReps, executionVideoReps, introVideoReps都为0，则提示错误
+            if (
+                previewVideoReps == undefined ||
+                previewVideoReps == null ||
+                !executionVideoReps ||
+                introVideoReps == undefined ||
+                introVideoReps == null
+            ) {
+                message.error(`The workout settings do not match the Duration.`);
+                return false;
+            }
+            const unitList = formValues.unitList;
+            unitList.forEach((item) => {
+                const round = item.round;
+                const count = item.count;
+                totalStructureDuration += (previewDuration + executionDuration) * round * count;
+            })
+            const totalDuration = Math.round((introDuration + totalStructureDuration));
+            const [, start, end] = formValues.durationCode.split('_').map(Number);
+            if (totalDuration < start || totalDuration >= end) {
+                message.error(`The template do not match the Duration.`);
+                return false;
+            }
 
+        }
         return true
     }
     return (

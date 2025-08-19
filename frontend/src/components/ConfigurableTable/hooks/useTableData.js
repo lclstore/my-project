@@ -90,7 +90,9 @@ export function useTableData(options = {}) {
             searchValue: searchValue.current,
             sorter: sorter.current,
         });
+        console.log(params.keywords);
 
+        console.log(searchParams.keywords)
 
         try {
             setLoading(true);
@@ -149,13 +151,13 @@ export function useTableData(options = {}) {
 
         // 懒加载创建防抖函数
         if (!debouncedFetchRef.current) {
-            debouncedFetchRef.current = debounce(() => {
-                fetchData(params);
+            debouncedFetchRef.current = debounce((latestParams) => {
+                fetchData(latestParams);
             }, 500);
         }
 
-        // 执行防抖搜索
-        debouncedFetchRef.current();
+        // 执行防抖搜索，传入最新的参数
+        debouncedFetchRef.current(params);
     }, []);
 
     // 搜索并筛选
