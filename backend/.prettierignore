@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+coverage/
+*.log
+.env*
+*.min.js
+*.min.css
+package-lock.json
+yarn.lock
+.git/
+storage/
+uploads/
+docs/
+sql/

@@ -25,21 +25,63 @@
 
 ```
 backend/
-├── config/              # 配置文件
-│   ├── database.js      # 数据库配置和操作封装
-│   └── swagger.js       # Swagger API文档配置
-├── middleware/          # 中间件
-│   └── auth.js          # JWT认证中间件
-├── routes/              # 路由定义
-│   ├── user.js          # 用户相关接口
-│   ├── files.js         # 文件管理接口
-│   ├── data.js          # 通用数据操作接口
-│   └── enum.js         # 枚举数据接口
-├── utils/               # 工具类
-│   ├── response.js      # 统一响应格式
-│   └── tokenBlacklist.js # Token黑名单管理
-├── uploads/             # 文件上传目录
-├── server.js            # 应用入口文件
+├── src/                 # 源代码目录
+│   ├── config/          # 配置文件
+│   │   ├── index.js     # 主配置文件
+│   │   ├── database.js  # 数据库配置
+│   │   ├── swagger.js   # API文档配置
+│   │   └── constants.js # 常量定义
+│   ├── core/            # 核心模块
+│   │   ├── Application.js # 应用主类
+│   │   ├── BaseController.js # 控制器基类
+│   │   ├── BaseService.js # 服务基类
+│   │   ├── BaseModel.js # 模型基类
+│   │   ├── Database.js  # 数据库操作类
+│   │   ├── Logger.js    # 日志系统
+│   │   └── Response.js  # 响应处理
+│   ├── controllers/     # 控制器层
+│   │   ├── UserController.js
+│   │   └── CategoryController.js
+│   ├── services/        # 业务逻辑层
+│   │   ├── UserService.js
+│   │   ├── CategoryService.js
+│   │   └── ResourceService.js
+│   ├── models/          # 数据模型层
+│   │   ├── User.js
+│   │   ├── Category.js
+│   │   └── Resource.js
+│   ├── middleware/      # 中间件
+│   │   ├── auth.js      # JWT认证
+│   │   ├── errorHandler.js # 错误处理
+│   │   ├── validation.js # 数据验证
+│   │   ├── rateLimiter.js # 限流
+│   │   ├── helmet.js    # 安全头
+│   │   └── requestId.js # 请求追踪
+│   ├── routes/          # 路由定义
+│   │   └── index.js     # 路由入口
+│   ├── exceptions/      # 异常处理
+│   │   ├── BaseException.js
+│   │   ├── HttpException.js
+│   │   ├── ValidationException.js
+│   │   ├── BusinessException.js
+│   │   └── index.js
+│   ├── utils/           # 工具类
+│   │   ├── validator.js # 数据验证器
+│   │   ├── cache.js     # 缓存管理
+│   │   └── healthCheck.js # 健康检查
+│   ├── storage/         # 存储目录
+│   │   ├── logs/        # 日志文件
+│   │   └── uploads/     # 上传文件
+│   └── server.js        # 应用入口
+├── test/                # 测试文件
+├── scripts/             # 脚本文件
+├── sql/                 # SQL文件
+├── docs/                # 文档目录
+├── docker-compose.yml   # Docker编排
+├── Dockerfile           # Docker配置
+├── jest.config.js       # 测试配置
+├── .eslintrc.js         # ESLint配置
+├── .prettierrc          # Prettier配置
 ├── package.json         # 项目依赖
 └── README.md           # 项目文档
 ```
@@ -54,19 +96,24 @@ backend/
 # 服务器配置
 PORT=8080
 NODE_ENV=development
-API_PREFIX=/api
+API_PREFIX=/templateCms/web
 FRONTEND_URL=http://localhost:3000
 
 # 数据库配置
-DB_HOST=localhost
+DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_USER=root
 DB_PASSWORD=your_password
-DB_NAME=your_database
+DB_NAME=test_db
 
 # JWT配置
-JWT_SECRET=your_jwt_secret_key
+JWT_SECRET=your_jwt_secret_key_here_make_it_long_and_secure
 JWT_EXPIRES_IN=24h
+
+# Cloudinary配置（可选）
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 ```
 
 ### 2. 数据库准备

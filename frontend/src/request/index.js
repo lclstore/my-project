@@ -86,6 +86,7 @@ class Request {
                 ...config,
                 [config.method === 'get' ? 'params' : 'data']: config.data ? config.data : {},
             }).then((res) => {
+
                 if (config.load) {
                     loading(false)
                 }
@@ -110,10 +111,15 @@ class Request {
                 config.callback(res)
                 resolve(res)
             }).catch((err) => {
+                err = err.response ? err.response.data : err;
                 if (config.load) {
                     loading(false)
                 }
-                message.open({ content: err.message, type: 'error' }, 'error')
+                message.open({ content: err.message, type: 'error' }, 'error');
+                if (err.errCode === 'TOKEN_INVALID' || err.errCode === 'TOKEN_EXPIRED') {
+
+                    useStore.getState().navigate('/login')
+                }
                 config.callback({ error: err })
                 console.log(err)
             })

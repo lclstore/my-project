@@ -7,7 +7,13 @@ const express = require('express');
 const { BusinessHelper, query } = require('../config/database');
 const { sendSuccess, sendError, ERROR_CODES } = require('../utils/response');
 const { validateApiData } = require('../utils/validator');
-const { toSnakeCase, convertToFrontendFormatWithOptions } = require('../utils/fieldConverter');
+const { convertToFrontendFormatWithOptions } = require('../utils/fieldConverter');
+
+// Manually implement toSnakeCase to ensure correctness
+const toSnakeCase = (str) => {
+    if (!str) return '';
+    return str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+};
 
 const router = express.Router();
 
